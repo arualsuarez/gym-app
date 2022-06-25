@@ -1,5 +1,11 @@
 let userAccessCount = 0;
 let userAccessQuota = 5;
+let user = {
+    name:'Arual',
+    surname:'Suarez',
+    age: 29,
+    id: 238,
+};
 
 let refreshUserStats = function () {
     let remaining = userAccessQuota - userAccessCount;
@@ -18,15 +24,29 @@ let showError = function(show) {
     }
 };
 
+let showUser = function (show) {
+    $('#welcome').text(`¡Bienvenid@ de nuevo, ${user.name}!`);
+
+    let $user = $('#user');
+
+    if (show) {
+        $user.addClass('visible').removeClass('invisible');
+    } else {
+        $user.addClass('invisible').removeClass('visible');
+    }
+}
+
 let accessGym = function() {
     if (userAccessCount >= userAccessQuota) {
         showError(true);
+        showUser(false);
         return;
     }
 
     userAccessCount += 1;
     refreshUserStats();
     showError(false);
+    showUser(true);
 };
 
 let increaseQuota = function () {
